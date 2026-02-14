@@ -1,0 +1,4 @@
+# Optional: for production use with aiohttp
+# aiohttp>=3.9.0
+
+# Pure Python - no external dependencies required!
