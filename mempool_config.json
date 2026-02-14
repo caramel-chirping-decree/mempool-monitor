@@ -1,0 +1,53 @@
+{
+  "mempool_url": "wss://mempool.space/api/v1/ws",
+  "reconnect_delay": 5,
+  "webhooks": {
+    "slack": {
+      "url": "https://hooks.slack.com/services/XXX/YYY/ZZZ",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    },
+    "discord": {
+      "url": "https://discord.com/api/webhooks/XXX/YYY",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json"
+      }
+    },
+    "custom": {
+      "url": "https://your-webhook-url.com/endpoint",
+      "method": "POST",
+      "headers": {
+        "Authorization": "Bearer your-token-here"
+      }
+    }
+  },
+  "triggers": [
+    {
+      "name": "new-block",
+      "event": "block",
+      "field": "blocks.0.height",
+      "operator": "exists",
+      "value": null,
+      "webhook": "discord"
+    },
+    {
+      "name": "mempool-large",
+      "event": "mempool",
+      "field": "count",
+      "operator": ">",
+      "value": 40000,
+      "webhook": "slack"
+    },
+    {
+      "name": "mempool-tx",
+      "event": "tx",
+      "field": "vsize",
+      "operator": ">",
+      "value": 50000,
+      "webhook": "custom"
+    }
+  ]
+}
